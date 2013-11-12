@@ -1,17 +1,22 @@
 <!DOCTYPE html>
 <html>
 <head>
-<?php //Get URL Parameter
-	$src = (empty($_GET['url'])) ? 'http://bradfrostweb.com/blog/post/ish' : addslashes(filter_input(INPUT_GET, 'url', FILTER_SANITIZE_URL));
-	// Get an optional Title Parameter. Handy for more than one instance of ish during presentations
-	$title = (empty($_GET['title'])) ? 'ish. yet another viewport resizer.' : filter_input(INPUT_GET, 'title');
-?>
 
     <meta charset="UTF-8">
-    <title><?php echo $title; ?></title>
+    <title>ISH</title>
     <meta name="viewport" content="width=device-width" />
     <link rel="stylesheet" href="styleguide/css/styleguide.css" media="all" />
     <script src="styleguide/js/jquery.js"></script>
+    <script src="styleguide/js/purl.js"></script>
+    <script>
+    	$(function(){
+    		var url = $.url().param("url");
+    		var title = $.url().param("title");
+    		if(title)
+    			document.title = title;
+    		$('#sg-viewport').attr('src',url);
+    	})
+    </script>
 </head>
 <body class="sg-nav-wrapper">
 <!--Style Guide Header-->
@@ -19,12 +24,8 @@
 	<a href="#sg-nav-container" class="sg-nav-toggle">Menu</a>
 	<div class="sg-nav-container" id="sg-nav-container" style="min-height: 33px">
 		<!--Begin Pattern Navigation-->
-<?php 
-//Get the correct URL for this domain. Is there really no easier way to do this?
-$bookmarkletURL = "http://$_SERVER[HTTP_HOST]$_SERVER[PHP_SELF]";
-// Change http to https if you host this on a secure server.
-?>
-		<a title="The ish bookmarklet" href="javascript:location.href='<?php echo $bookmarkletURL; ?>?title='+document.title+'&url='+window.location.href">ish</a>
+
+		<a title="The ish bookmarklet" href="javascript:void(0)">ish</a>
 
 		<!--End Pattern Navigation-->
 		
@@ -58,7 +59,7 @@ $bookmarkletURL = "http://$_SERVER[HTTP_HOST]$_SERVER[PHP_SELF]";
 <div id="sg-vp-wrap">
 	<div id="sg-cover"></div>
 	<div id="sg-gen-container">
-		<iframe id="sg-viewport" src="<?php echo $src; ?>" style="background: #fff;"></iframe>
+		<iframe id="sg-viewport" src="" style="background: #fff;"></iframe>
 		<div id="sg-rightpull-container">
 			<div id="sg-rightpull"></div>
 		</div>
